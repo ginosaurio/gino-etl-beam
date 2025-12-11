@@ -1,0 +1,8 @@
+expression path = "C:\etl\gino-etl-beam\output\etls_ejecutadas.csv" meta [IsParameterQuery=true, Type="Any", IsParameterQueryRequired=true]
+	lineageTag: a4dddca7-f2cc-4969-a09b-22dd65a5e5bd
+	queryGroup: Parametros
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Text
+

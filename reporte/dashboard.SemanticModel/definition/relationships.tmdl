@@ -1,0 +1,4 @@
+relationship dda77609-83db-756b-195d-f4d45a31d95f
+	fromColumn: etls_ejecutadas.Fecha
+	toColumn: Calendario.Date
+

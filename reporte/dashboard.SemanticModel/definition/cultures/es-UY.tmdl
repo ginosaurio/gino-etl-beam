@@ -1,0 +1,46 @@
+cultureInfo es-UY
+
+	linguisticMetadata =
+			{
+			  "Version": "4.1.0",
+			  "Language": "en-US",
+			  "Entities": {
+			    "reports_users.identifier": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Reports Users",
+			          "ConceptualProperty": "Identifier"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "inventoryitems.type": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "InventoryItems",
+			          "ConceptualProperty": "Type"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Tipo": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    }
+			  },
+			  "Agents": {
+			    "Internal": {
+			      "Version": "1.1.0"
+			    }
+			  }
+			}
+		contentType: json
+

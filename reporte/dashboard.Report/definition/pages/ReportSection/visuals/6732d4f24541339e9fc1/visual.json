@@ -1,0 +1,31 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "6732d4f24541339e9fc1",
+  "position": {
+    "x": 667.27272727272725,
+    "y": 56.36363636363636,
+    "z": 18000,
+    "height": 59.999999999999993,
+    "width": 294.5454545454545,
+    "tabOrder": 21000
+  },
+  "visualGroup": {
+    "displayName": "Date range",
+    "groupMode": "ScaleMode",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "altText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Date range slicer'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

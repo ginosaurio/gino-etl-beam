@@ -1,0 +1,48 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 49.70819443264709,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 1137.3516073031776,
+            "y": 152.88005499457725
+          },
+          "nodeIndex": "Calendario",
+          "nodeLineageTag": "b429dc76-e12f-421d-bb92-7556f6e7cf41",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 582.45466273975615,
+            "y": 218.93701781228197
+          },
+          "nodeIndex": "etls_ejecutadas",
+          "nodeLineageTag": "ab58c713-0d96-41d6-a6c0-539114ca3167",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Todas las tablas",
+      "zoomValue": 102.59877789184893,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "Todas las tablas",
+  "defaultDiagram": "Todas las tablas"
+}

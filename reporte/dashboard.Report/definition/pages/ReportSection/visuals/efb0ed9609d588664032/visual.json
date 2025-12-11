@@ -1,0 +1,31 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "efb0ed9609d588664032",
+  "position": {
+    "x": 405.45454545454544,
+    "y": 56.36363636363636,
+    "z": 7000,
+    "height": 37.272727272727266,
+    "width": 229.99999999999997,
+    "tabOrder": 3000
+  },
+  "visualGroup": {
+    "displayName": "Experience slicer",
+    "groupMode": "ScaleMode",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "altText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Experience slicer'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

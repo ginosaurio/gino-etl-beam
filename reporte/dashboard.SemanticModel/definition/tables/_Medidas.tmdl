@@ -1,0 +1,171 @@
+table _Medidas
+	lineageTag: 4c862f2a-5eb1-47b1-b3fd-a3cbf21b628d
+
+	measure FechaMin = ```
+			MIN('etls_ejecutadas'[fecha_inicio])
+			
+			```
+		formatString: General Date
+		lineageTag: 59e9970e-8df8-43d5-b8ff-327364f44117
+
+	measure FechaMax = ```
+			MAX('etls_ejecutadas'[fecha_inicio])
+			
+			```
+		formatString: General Date
+		lineageTag: acf59bd6-d67a-4dab-ac59-e2ca10adbe4d
+
+	measure TasaExito_7dias = ```
+			
+			VAR FechaHoy = TODAY()
+			VAR FechaDesde = FechaHoy - 7
+			VAR Tot7 = 
+			    CALCULATE(
+			        COUNTROWS(etls_ejecutadas),
+			        FILTER(
+			            ALL( Calendario ),
+			            Calendario[Date] >= FechaDesde
+			            && Calendario[Date] <= FechaHoy
+			        )
+			    )
+			VAR Exitos7 = 
+			    CALCULATE(
+			        COUNTROWS(etls_ejecutadas),
+			        etls_ejecutadas[estado] = "Exito",
+			        FILTER(
+			            ALL( Calendario ),
+			            Calendario[Date] >= FechaDesde
+			            && Calendario[Date] <= FechaHoy
+			        )
+			    )
+			RETURN
+			DIVIDE( Exitos7, Tot7, 0 )
+			```
+		lineageTag: fe9809d4-d703-4adb-b3b9-6b5e37727497
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure TotalEjecuciones = COUNTROWS(etls_ejecutadas)
+		formatString: 0
+		lineageTag: a511870c-b3b1-4577-9158-e806680d97a5
+
+	measure Flag_Ultimos7Dias =
+			
+			VAR _Hoy = TODAY()
+			RETURN
+			IF(
+			    MAX( Calendario[Date] ) >= _Hoy - 7 &&
+			    MAX( Calendario[Date] ) <= _Hoy,
+			    1,
+			    0
+			)
+		formatString: 0
+		lineageTag: 8db9e9a4-9a8a-45bd-8771-2030df15030a
+
+	measure TasaExito_General =
+			
+			DIVIDE( [_TotalExitos], [_TotalEjecuciones], 0 )
+		lineageTag: 57a9cc9c-8b81-4e99-8868-faa179bdd6fe
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure _TotalEjecuciones = COUNTROWS(etls_ejecutadas)
+		formatString: 0
+		lineageTag: fc065d12-2daf-4d35-8e19-35f88fb1e514
+
+	measure _TotalExitos =
+			
+			CALCULATE(
+			    COUNTROWS( etls_ejecutadas ),
+			    etls_ejecutadas[estado] = "Exito"
+			)
+		formatString: 0
+		lineageTag: 086c2d93-81f1-4df5-ad63-f4ad8bf4d460
+
+	measure TasaExito_30dias = ```
+			
+			VAR FechaHoy = TODAY()
+			VAR FechaDesde30 = FechaHoy - 30
+			VAR Tot30 = 
+			    CALCULATE(
+			        COUNTROWS(etls_ejecutadas),
+			        FILTER(
+			            ALL( Calendario ),
+			            Calendario[Date] >= FechaDesde30
+			            && Calendario[Date] <= FechaHoy
+			        )
+			    )
+			VAR Exitos30 = 
+			    CALCULATE(
+			        COUNTROWS(etls_ejecutadas),
+			        etls_ejecutadas[estado] = "Exito",
+			        FILTER(
+			            ALL( Calendario ),
+			            Calendario[Date] >= FechaDesde30
+			            && Calendario[Date] <= FechaHoy
+			        )
+			    )
+			RETURN
+			DIVIDE( Exitos30, Tot30, 0 )
+			```
+		lineageTag: f671dc0c-eb68-4330-ab44-00e5501152d0
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'DAX ConteoEjecuciones' = COUNTROWS(etls_ejecutadas)
+		formatString: 0
+		lineageTag: 7e134269-f60f-4340-8980-77c8f568c01e
+
+	measure 'DAX DuracionPromedio_ETL' = AVERAGE(etls_ejecutadas[duracion_segundos])
+		lineageTag: 962ec686-839e-45f6-96e1-e7218ad0150a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure ConteoEjecuciones_7dias = ```
+			
+			VAR TodayDate = TODAY()
+			VAR StartDate = TodayDate - 7
+			RETURN
+			    CALCULATE(
+			        COUNTROWS(etls_ejecutadas),
+			        FILTER(
+			            ALL(Calendario),
+			            Calendario[Date] >= StartDate
+			            && Calendario[Date] <= TodayDate
+			        )
+			    )
+			
+			```
+		formatString: 0
+		lineageTag: 401ec3e3-3e9c-4ffe-a825-f8ea3c67fd91
+
+	measure ConteoEjecuciones_30dias = ```
+			
+			VAR TodayDate = TODAY()
+			VAR StartDate30 = TodayDate - 30
+			RETURN
+			    CALCULATE(
+			        COUNTROWS(etls_ejecutadas),
+			        FILTER(
+			            ALL(Calendario),
+			            Calendario[Date] >= StartDate30
+			            && Calendario[Date] <= TodayDate
+			        )
+			    )
+			
+			```
+		formatString: 0
+		lineageTag: 59f47054-25ab-43da-ac8a-416bfb4e50fb
+
+	partition _Medidas = m
+		mode: import
+		source =
+				let
+				    Origen = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Columna1 = _t]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(Origen,{{"Columna1", type text}}),
+				    #"Columnas quitadas" = Table.RemoveColumns(#"Tipo cambiado",{"Columna1"})
+				in
+				    #"Columnas quitadas"
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,91 @@
+table etls_ejecutadas
+	lineageTag: ab58c713-0d96-41d6-a6c0-539114ca3167
+
+	column id_ejecucion
+		dataType: string
+		lineageTag: fb4beda9-fd0c-4739-9352-01548df278de
+		summarizeBy: none
+		sourceColumn: id_ejecucion
+
+		annotation SummarizationSetBy = Automatic
+
+	column fecha_inicio
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 543b8d71-6470-4fdb-8f41-de916b40efc3
+		summarizeBy: none
+		sourceColumn: fecha_inicio
+
+		annotation SummarizationSetBy = Automatic
+
+	column nombre_etl
+		dataType: string
+		lineageTag: 336de535-4491-4d60-b0c2-cc14b3807258
+		summarizeBy: none
+		sourceColumn: nombre_etl
+
+		annotation SummarizationSetBy = Automatic
+
+	column duracion_segundos
+		dataType: int64
+		formatString: 0
+		lineageTag: 997b1116-d60d-4eb2-a69f-0dae7a21f9a2
+		summarizeBy: sum
+		sourceColumn: duracion_segundos
+
+		annotation SummarizationSetBy = Automatic
+
+	column estado
+		dataType: string
+		lineageTag: eaaf3a78-44b2-4caa-85d7-1eba24b665f6
+		summarizeBy: none
+		sourceColumn: estado
+
+		annotation SummarizationSetBy = Automatic
+
+	column datos_procesados
+		dataType: int64
+		formatString: 0
+		lineageTag: 3658341e-b8b4-43e4-9ba0-bfa67c633670
+		summarizeBy: sum
+		sourceColumn: datos_procesados
+
+		annotation SummarizationSetBy = Automatic
+
+	column Fecha
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: a677e7c8-b47a-4903-adb6-ec45bc45e5cb
+		summarizeBy: none
+		sourceColumn: Fecha
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column duracion_minutos
+		dataType: double
+		lineageTag: 3e67aeb5-a7cb-4187-9e2e-62d7bb7d62c4
+		summarizeBy: sum
+		sourceColumn: duracion_minutos
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition etls_ejecutadas = m
+		mode: import
+		source =
+				let
+				    Origen = Csv.Document(File.Contents(path),[Delimiter=",", Columns=6, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Encabezados promovidos" = Table.PromoteHeaders(Origen, [PromoteAllScalars=true]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"id_ejecucion", type text}, {"fecha_inicio", type datetime}, {"nombre_etl", type text}, {"duracion_segundos", Int64.Type}, {"estado", type text}, {"datos_procesados", Int64.Type}}),
+				    #"Fecha insertada" = Table.AddColumn(#"Tipo cambiado", "Fecha", each Date.From([fecha_inicio]), type date),
+				    #"Duración en Minutos" = Table.AddColumn(#"Fecha insertada", "duracion_minutos", each [duracion_segundos] / 60, type number)
+				in
+				    #"Duración en Minutos"
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,31 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "a1aed08714c276adb833",
+  "position": {
+    "x": 18.18181818181818,
+    "y": 56.36363636363636,
+    "z": 4000,
+    "height": 37.272727272727266,
+    "width": 373.63636363636363,
+    "tabOrder": 2000
+  },
+  "visualGroup": {
+    "displayName": "Capacity slicer",
+    "groupMode": "ScaleMode",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "altText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Capacity name slicer'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

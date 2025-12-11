@@ -1,0 +1,28 @@
+table ObtenerFechas
+	lineageTag: 1a77b79e-420f-4eb0-bb47-b9af1a854588
+
+	column ObtenerFechas
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 9dada43f-59d3-4e2b-aa79-ab0f06380087
+		summarizeBy: none
+		sourceColumn: ObtenerFechas
+
+		annotation SummarizationSetBy = Automatic
+
+	partition ObtenerFechas = m
+		mode: import
+		queryGroup: Calendario
+		source =
+				let
+				    Origen = #"etls_ejecutadas"[fecha_inicio],
+				    MinDate = List.Min(#"etls_ejecutadas"[fecha_inicio]),
+				    MaxDate = List.Max(#"etls_ejecutadas"[fecha_inicio])
+				
+				in
+				    MaxDate
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = DateTime
+
