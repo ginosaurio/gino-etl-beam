@@ -74,3 +74,13 @@ Para iniciar el proceso de transformación de datos, ejecute el script principal
 ```
 python pipeline.py --json_input_pattern ".\data\*.json" --country_csv ".\data\country_data_v2.csv" --output_prefix ".\output\hrl_enriched" --runner DirectRunner
 ```
+
+## Ejecución reporte Power BI
+
+Para ejecutar el reporte, se debe ejecutar el código que generará un archivo de salida en la carpeta output que se genera automáticamente si no existe.
+
+```
+python etlDataSimulator.py
+```
+
+Posterior, se debe abrír el archivo dashboard.pbit que solicitará la ruta en donde se encuentra el archivo excel generado por el código etlDataSimulator.py
